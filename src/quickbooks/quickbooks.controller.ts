@@ -2872,6 +2872,303 @@ async deleteBill(@Body() data:any){
 }
 
 
+
+@Post('billpayment/create')
+async createBillPayment(@Body() data: any) {
+  if (!data || !data.connectionId ) {
+    throw new HttpException('connectionId is required',HttpStatus.BAD_REQUEST,);
+  }
+  try {
+    const result = await this.performQuickBooksAction('billpayment', 'create','post',data,);
+    if (result.status >= 400) {
+      throw new HttpException( result.response || 'QuickBooks request failed', result.status, );
+    }
+    return {
+      message: 'BillPayment created successfully',
+      Response: result.response,
+      Status: result.status,
+    };
+  } catch (error) {
+    if (error instanceof HttpException) {
+      throw error;
+    }
+    throw new HttpException(
+      error instanceof Error ? error.message : 'Internal server error',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
+@Post('billpayment/get')
+  async getBillPayment(@Body() data: any) {
+    if (!data || !data.connectionId || !data.Id) {
+    throw new HttpException('connectionId and Id are required', HttpStatus.BAD_REQUEST,);
+    }
+      try{
+        const result = await this.performQuickBooksAction('billpayment','get','get',data);
+        if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+        return{
+          message:'BillPayment Credit get executed successfully',
+          Response:result.response,
+          Status:result.status,
+        }
+      } catch (error) {
+          if (error instanceof HttpException) {
+            throw error;
+          }
+
+          throw new HttpException(
+          error instanceof Error? error.message : 'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        }
+  }
+
+  
+@Post('billpayment/getMany')
+async getManyBillPayment(@Body() data:any){
+  if(!data || !data.connectionId){
+    throw new HttpException('connectionId is required',HttpStatus.BAD_REQUEST)
+  }
+  try{
+    const result = await this.performQuickBooksAction('billpayment','getMany','get',data);
+     if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'BillPayment getMany executed successfully',
+      response:result.response,
+      status:result.status,
+    }
+  }
+  catch(error){
+    if(error instanceof HttpException){
+      throw error;
+    }
+    throw new HttpException(
+      error instanceof Error?error.message:'Internal swerver error',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    )
+  }
+}
+
+@Post('billpayment/update')
+async updateBillPayment(@Body() data:any){
+  if(!data || !data.connectionId || !data.Id || data.SyncToken === undefined || data.SyncToken === null  ){
+  throw new HttpException('connectionId, Id and SyncToken are required', HttpStatus.BAD_REQUEST,);
+  }
+  try{
+    const result = await this.performQuickBooksAction('billpayment','update','post',data,);
+     if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'BillPayment Credit updated successfully',
+      Response:result.response,
+      Status:result.status,
+    }
+  }
+  catch(error){
+   if(error instanceof HttpException){
+    throw error;
+   }
+   throw new HttpException(
+    error instanceof Error?error.message:'Internal server error',
+    HttpStatus.INTERNAL_SERVER_ERROR,
+   );
+  }
+}
+
+@Post('billpayment/delete')
+async deleteBillPayment(@Body() data:any){
+  if(!data || !data.connectionId || !data.Id || data.SyncToken === undefined || data.SyncToken === null){
+  throw new HttpException('connectionId, Id and SyncToken are required', HttpStatus.BAD_REQUEST,);
+  }
+  try{
+    const result = await this.performQuickBooksAction('billpayment','delete','post',data,);
+     if(result.status >= 400 || result.response?.Fault)  {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'BillPayment Deleted successfully',
+      Response:result.response,
+      Status:result.status,
+    }
+  }
+  catch(error){
+   if(error instanceof HttpException){
+    throw error;
+   }
+   throw new HttpException(
+    error instanceof Error?error.message:'Internal server error',
+    HttpStatus.INTERNAL_SERVER_ERROR,
+   );
+  }
+}
+
+@Post('billpayment/void')
+async voidBillPayment(@Body() data: any) {
+  if (!data || !data.connectionId || !data.Id ||data.SyncToken === undefined || data.SyncToken === null) {
+    throw new HttpException('connectionId, Id and SyncToken are required', HttpStatus.BAD_REQUEST,);
+  }
+  try {
+    const result = await this.performQuickBooksAction('billpayment', 'void', 'post', data,);
+     if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return {
+      message: 'BillPayment Void successfully',
+      Response: result.response,
+      Status: result.status,
+    };
+  } catch (error) {
+    if (error instanceof HttpException) {
+      throw error;
+    }
+    throw new HttpException(
+      error instanceof Error ? error.message : 'Internal server error',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
+
+@Post('budget/create')
+async createBudget(@Body() data: any) {
+  if (!data || !data.connectionId ) {
+    throw new HttpException('connectionId is required',HttpStatus.BAD_REQUEST,);
+  }
+  try {
+    const result = await this.performQuickBooksAction('budget', 'create','post',data,);
+    if (result.status >= 400) {
+      throw new HttpException( result.response || 'QuickBooks request failed', result.status, );
+    }
+    return {
+      message: 'Budget created successfully',
+      Response: result.response,
+      Status: result.status,
+    };
+  } catch (error) {
+    if (error instanceof HttpException) {
+      throw error;
+    }
+    throw new HttpException(
+      error instanceof Error ? error.message : 'Internal server error',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
+@Post('budget/get')
+  async getBudget(@Body() data: any) {
+    if (!data || !data.connectionId || !data.Id) {
+    throw new HttpException('connectionId and Id are required', HttpStatus.BAD_REQUEST,);
+    }
+      try{
+        const result = await this.performQuickBooksAction('budget','get','get',data);
+        if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+        return{
+          message:'Budget Credit get executed successfully',
+          Response:result.response,
+          Status:result.status,
+        }
+      } catch (error) {
+          if (error instanceof HttpException) {
+            throw error;
+          }
+
+          throw new HttpException(
+          error instanceof Error? error.message : 'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        }
+  }
+
+  
+@Post('budget/getMany')
+async getManyBudget(@Body() data:any){
+  if(!data || !data.connectionId){
+    throw new HttpException('connectionId is required',HttpStatus.BAD_REQUEST)
+  }
+  try{
+    const result = await this.performQuickBooksAction('budget','getMany','get',data);
+     if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'Budget getMany executed successfully',
+      response:result.response,
+      status:result.status,
+    }
+  }
+  catch(error){
+    if(error instanceof HttpException){
+      throw error;
+    }
+    throw new HttpException(
+      error instanceof Error?error.message:'Internal swerver error',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    )
+  }
+}
+
+@Post('budget/update')
+async updateBudget(@Body() data:any){
+  if(!data || !data.connectionId || !data.Id || data.SyncToken === undefined || data.SyncToken === null  ){
+  throw new HttpException('connectionId, Id and SyncToken are required', HttpStatus.BAD_REQUEST,);
+  }
+  try{
+    const result = await this.performQuickBooksAction('budget','update','post',data,);
+     if (result.status >= 400) {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'Budget updated successfully',
+      Response:result.response,
+      Status:result.status,
+    }
+  }
+  catch(error){
+   if(error instanceof HttpException){
+    throw error;
+   }
+   throw new HttpException(
+    error instanceof Error?error.message:'Internal server error',
+    HttpStatus.INTERNAL_SERVER_ERROR,
+   );
+  }
+}
+
+@Post('budget/delete')
+async deleteBudget(@Body() data:any){
+  if(!data || !data.connectionId || !data.Id || data.SyncToken === undefined || data.SyncToken === null){
+  throw new HttpException('connectionId, Id and SyncToken are required', HttpStatus.BAD_REQUEST,);
+  }
+  try{
+    const result = await this.performQuickBooksAction('budget','delete','post',data,);
+     if(result.status >= 400 || result.response?.Fault)  {
+  throw new HttpException( result.response || 'QuickBooks request failed',result.status,);
+}
+    return{
+      message:'budget Deleted successfully',
+      Response:result.response,
+      Status:result.status,
+    }
+  }
+  catch(error){
+   if(error instanceof HttpException){
+    throw error;
+   }
+   throw new HttpException(
+    error instanceof Error?error.message:'Internal server error',
+    HttpStatus.INTERNAL_SERVER_ERROR,
+   );
+  }
+}
   public async curl(module: string, action: string, method: string, data: any,): Promise<any> {
     try {
       const connectionId =  data.connectionId;
@@ -2894,11 +3191,14 @@ async deleteBill(@Body() data:any){
       if (action ==='get' && data.Id) {
         url += `/${data.Id}`;
       }
+     if (( module=='bill'|| module === 'billpayment')&& action === 'delete') {
+         url += `?operation=delete&minorversion=75`;
+      }
       if(action ==='delete'){
         url +=`?operation=delete`;
       }
-       if(action ==='void'){
-        url +=`?operation=void`;
+        if (module === 'billpayment' && action === 'void') {
+        url = `${baseUrl}/v3/company/${realmId}/billpayment?operation=update&include=void&minorversion=75`;
       }
       if(action === 'send' && data.Id){
         url +=`/${data.Id}/send`
@@ -2921,7 +3221,7 @@ async deleteBill(@Body() data:any){
       if(module === 'taxservice' && action ==='create'){
         url +=`/taxcode`;
       }
-      if (module === 'taxsummary' && action === 'getMany') {
+         if (module === 'taxsummary' && action === 'getMany') {
          url = `${baseUrl}/v3/company/${realmId}/reports/TaxSummary`;
       }
        if (module === 'transactionlist' && action === 'getMany') {
@@ -2945,10 +3245,7 @@ async deleteBill(@Body() data:any){
       if (module === 'term' && action === 'update') {
          url += '?minorversion=40';
       }
-      if (action === 'delete') {
-         url += `?operation=delete&minorversion=75`;
-      }
-       if ((module === 'transfer' || module==='vendorcredit') && action === 'delete' ) {
+      if ((module === 'transfer' || module==='vendorcredit') && action === 'delete' ) {
         url += '&minorversion=75';
       }
       if (module === 'transfer'|| module==='vendor' || module==='vendorcredit') {
@@ -2956,9 +3253,6 @@ async deleteBill(@Body() data:any){
       }
       if ((module === 'transfer' || module==='vendor' || module==='vendorcredit' || module === 'bill') && action === 'get' && data.Id) {
         url += '?minorversion=75';
-      }
-      if (module === 'transfer' && action === 'delete') {
-        url += '&minorversion=75';
       }
       if (module === 'trialbalance' && action === 'getMany') {
          url = `${baseUrl}/v3/company/${realmId}/reports/TrialBalance`;
@@ -3008,8 +3302,32 @@ async deleteBill(@Body() data:any){
       if (module === 'batch' && action === 'create') {
         url = `${baseUrl}/v3/company/${realmId}/batch?minorversion=75`;
       }
-      if(module==='bill' && (action ==='create'|| action==='update')){
+      if((module==='bill'  )&& (action ==='create'|| action==='update')){
         url += '?minorversion=75';
+      }
+      if(module==='billpayment' && action==='create'){
+        url +='?minorversion=75';
+      }
+      if (module === 'billpayment' && action === 'get') {
+         url = `${baseUrl}/v3/company/${realmId}/billpayment/${data.Id}?minorversion=75`;
+      }
+      if (module === 'billpayment' && action === 'update') {
+        url = `${baseUrl}/v3/company/${realmId}/billpayment?minorversion=75`;
+      }
+      if (module === 'billpayment' && action === 'delete') {
+        url = `${baseUrl}/v3/company/${realmId}/billpayment?operation=delete&minorversion=75`;
+      }
+       if (module === 'budget' &&( action === 'create' || action==='update' )) {
+        url = `${baseUrl}/v3/company/${realmId}/budget`;
+      }
+      if (module === 'budget' && action === 'delete') {
+        url = `${baseUrl}/v3/company/${realmId}/budget?operation=delete`;
+      }
+      if (module === 'budget' && action === 'get') {
+        url = `${baseUrl}/v3/company/${realmId}/budget/${data.Id}`;
+      }
+      if(action ==='void'){
+        url +=`?operation=void`;
       }
 
       const headers = {
@@ -3053,7 +3371,7 @@ async deleteBill(@Body() data:any){
       else if(module==='taxsummary' && action==='getMany'){
           options.params={agency_id: requestData.agency_id, start_date: requestData.start_date,  end_date: requestData.end_date,};
       }
-      else if ( (module === 'transfer' || module==='vendor' || module==='vendorcredit' || module==='attachable' || module === 'bill')&& action === 'getMany') {
+      else if ( (module === 'transfer' || module==='vendor' || module==='vendorcredit' || module==='attachable' || module === 'bill' || module==='billpayment'|| module==='budget')&& action === 'getMany') {
         options.params ={ query:requestData.query, minorversion:75};
       }
       else if ((module === 'accountlistdetail' || module==='apagingdetail' || module==='apagingSummary' || module==='aragingdetail' || module==='aragingSummary' || module==='balancesheet') && action === 'getMany') {
@@ -3062,7 +3380,7 @@ async deleteBill(@Body() data:any){
       else if (action === 'getMany') {
         options.params ={ query:requestData.query, minorversion:40};
       }
-      else if(action === 'send' || action==='pdf' || action ==='getAll' || action==='download'){
+      else if(action === 'send' || action==='pdf' || action ==='getAll' || action==='download'||( (module === 'budget' && action === 'get'))){
       //send API does not require request body
       }
         else {

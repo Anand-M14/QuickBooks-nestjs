@@ -202,4 +202,14 @@ export const modules = [
     actions: ['create', 'delete', 'getMany', 'get', 'update'],
     triggers: [],
   },
+      {
+    module: 'billpayment',
+    actions: ['create', 'delete', 'getMany', 'get', 'update','void'],
+    triggers: [],
+  },
+      {
+    module: 'budget',
+    actions: ['create', 'delete', 'getMany', 'get', 'update'],
+    triggers: [],
+  },
 ];

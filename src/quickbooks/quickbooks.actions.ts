@@ -167,4 +167,19 @@ bill: {
   get: 'getBill',
   update: 'updateBill',
 },
+billpayment: {
+  create: 'createBillPayment',
+  void: 'voidBillPayment',
+  delete: 'deleteBillPayment',
+  getMany: 'getManyBillPayment',
+  get: 'getBillPayment',
+  update: 'updateBillPayment',
+},
+budget: {
+  create: 'createBudget',
+  delete: 'deleteBudget',
+  getMany: 'getManyBudget',
+  get: 'getBudget',
+  update: 'updateBudget',
+},
 };
